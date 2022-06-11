@@ -1,0 +1,79 @@
+When there is huge data in single table relational DB does not perform well.
+
+Use of clustering key in cassandra ==> It orders the data at the time of insertion into database.So that we get the data in the specific order when we query.
+And this is not done at runtime and hence it increases the performance when doing a fetch.
+
+Books_by_author_id ==> List down all books by authorID
+Books_By_ID ==> Get Book info by ID
+
+User_book_by_bookID_UID ==> get book rating and markings by user based on userid and bookid
+User_books_by_userid ==> get all books for a loggedin user
+
+
+Books_By_ID
+bookid - Partition key and Primary Key
+name
+desc
+cover
+authorname
+authorID
+
+Books_By_Author_id
+author_id - partitionKey
+publisheddate - clustering key,Decending
+name
+bookid
+bookname
+cover
+
+Primary key = author_id+published_dt
+
+
+Books_by_userid_and_bookid
+user_id - partitionkey
+book_id - partitionkey
+startdate
+enddate
+rating
+status
+
+Primarykey = user_id+book_id
+
+Books_by_user_id
+user_id - partitionkey
+status - clustering key,ascending
+timeUuid - clusteringkey,descending
+book_id
+rating
+
+user_id++status+timeUuid = primary key
+
+
+API - 
+1)BookController = /better-reads/books/{bookId} - Get book By ID
+Search books and click on book to fetch book Info By ID
+This API also returns the User interaction with Book if the user has logged in (reference UserBooksController GET /better-reads/users/{userId}/books/{bookId})
+
+Table - book_by_id,book_by_user_and_bookid
+
+
+2)DashboardController = /better-reads/dashboard/{userId}
+Loads books post login for the user.
+Table - books_by_user
+
+3)SearchBookController = /better-reads/search/books
+Use 3rd party API and get search result and display in UI
+User can search wooks with or without login
+Also get book information by clicking on book id (reference BookController /better-reads/books/{bookId})
+
+4)UserBooksController = GET /better-reads/users/{userId}/books/{bookId}
+To get user interaction with book if present
+
+PUT - /users/{userId}/books/{bookId}
+To save user interaction with books
+Also saves bookInfo for User for dashboard
+
+Table - book_by_user_and_bookid,books_by_user
+
+
+
