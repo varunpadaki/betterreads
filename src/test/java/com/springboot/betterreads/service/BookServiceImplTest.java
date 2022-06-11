@@ -23,8 +23,8 @@ import com.springboot.betterreads.exception.RecordNotFoundException;
 import com.springboot.betterreads.helper.BookHelper;
 import com.springboot.betterreads.repository.BookRepository;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
+//@ExtendWith(SpringExtension.class)
+//@SpringBootTest
 public class BookServiceImplTest {
 
 	@Autowired
