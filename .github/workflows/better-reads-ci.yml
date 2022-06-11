@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-
+    name: build-job
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +27,8 @@ jobs:
       
 
   test:
-
+    name: test-job
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
