@@ -4,6 +4,7 @@ EXPOSE 8080
 ADD target/betterreads-0.0.1-SNAPSHOT.jar betterreads-service.jar 
 ENTRYPOINT ["sh","-c","java -jar betterreads-service.jar"]
 
+#
 #2 exploded jar - extract jar and copy the extracted data to target/dependency folder
 #FROM openjdk:11
 #ARG DEPENDENCY=target/dependency
